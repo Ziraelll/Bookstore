@@ -10,17 +10,18 @@
             src="https://kit.fontawesome.com/51858e06f0.js"
             crossorigin="anonymous"
     ></script>
+    <script src="js/main.js"></script>
     <title>Bookstore</title>
 </head>
 <body>
 <header>
-    <div class="header__block cb">
+    <div class="header__block ">
         <div class="header__block-left"><img src="src/Book-open.png" alt=""><span>Магазин книг</span></div>
-        <div class="header__block-right">Баланс: 0 (вы студент) руб.</div>
+        <div class="header__block-right"><span id="balance"></span></div>
     </div>
 </header>
 <main class="main-bord">
-    <section class="main-bord__block-left cb">
+    <section class="main-bord__block-left ">
         <div class="main-bord__block-left__block">
             <div class="main-bord__block-left-sort">
                 <button>Сортировать по цене</button>
@@ -34,10 +35,15 @@
                 <option value="4">Тестирование</option>
             </select>
         </div>
-        <div class="search-block"></div>
+        <div class="search-block">
+            <img src="src/Search.png" alt="">
+            <input placeholder="Введите название книги" class="cb" type="search">
+        </div>
+        <div class="market-bord " id="books">
+        </div>
     </section>
     <section class="main-bord__block-right cb">
-        qwed
+        <div class="buy-text"><span>Корзина</span> <img src="src/Shopping-cart.svg" alt="Корзина"></div>
     </section>
 </main>
 </body>
