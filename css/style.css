@@ -99,6 +99,7 @@ header {
 
 .main-bord__block-right {
   width: 30%;
+  height: 1000px;
 }
 
 .search-block {
@@ -123,6 +124,7 @@ header {
   display: flex;
   align-items: center;
   font-size: 32px;
+  margin-bottom: 20px;
 }
 
 .buy-text > img {
@@ -138,6 +140,7 @@ header {
   display: flex;
   width: 360px;
   height: 100px;
+  margin: 20px;
 }
 
 .img {
@@ -182,4 +185,41 @@ header {
 
 .market-bord {
   margin-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.basket {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+.basket > .name {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  margin-bottom: 0;
+}
+
+.basket > .value {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: rgba(0, 0, 0, 0.5);
+  margin-bottom: 10px;
+}
+
+.basket > .price {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+}
+
+.basket > button {
+  border: none;
+}
+
+.basket > button > img {
+  width: 30px;
 }
