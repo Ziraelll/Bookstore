@@ -27,17 +27,16 @@
                 <button>Сортировать по цене</button>
                 <img src="src/Sort.png" alt="Сортировка">
             </div>
-            <select name="Category" id="">
-                <option value="">Категория</option>
-                <option value="1">Дизайн</option>
-                <option value="2">Управление проектами</option>
-                <option value="3">Разработка</option>
-                <option value="4">Тестирование</option>
+            <select name="Category" id="category"
+                    onchange="getBooksByCategory(this.value)">
+                <option value="-1">Категория</option>
+
             </select>
         </div>
         <div class="search-block">
             <img src="src/Search.png" alt="">
-            <input placeholder="Введите название книги" class="cb" type="search">
+            <input placeholder="Введите название книги" class="" type="search" id="search"
+                   onkeyup="searchText(this.value)">
         </div>
         <div class="market-bord cb " id="books">
         </div>
