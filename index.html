@@ -23,7 +23,7 @@
 <main class="main-bord">
     <section class="main-bord__block-left ">
         <div class="main-bord__block-left__block">
-            <div class="main-bord__block-left-sort">
+            <div class="main-bord__block-left-sort" onclick="sortByPrice()">
                 <button>Сортировать по цене</button>
                 <img src="src/Sort.png" alt="Сортировка">
             </div>
@@ -44,14 +44,12 @@
     </section>
     <section class="main-bord__block-right " id="cart">
         <div class="buy-text"><span>Корзина</span> <img src="src/Shopping-cart.svg" alt="Корзина"></div>
-        <!--        <div class=" basket  ">-->
-        <!--            <div class="market-bord-item-info  ">-->
-        <!--                <span id="name">Название книги</span>-->
-        <!--                <span id="value">1шт.</span>-->
-        <!--                <span id="price">1321руб.</span>-->
-        <!--            </div>-->
-        <!--            <button><img src="src/Cross.png" alt="cross"></button>-->
-        <!--        </div>-->
+        <p id="noBook" class="noBook">Нету книг в корзине</p>
+
+        <div class="buy">
+            <span id="totalPrice">0</span>
+            <button class="butBuy" onclick="buy()">Купить</button>
+        </div>
     </section>
 </main>
 </body>

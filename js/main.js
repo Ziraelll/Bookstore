@@ -1,6 +1,16 @@
+const NOBOOK = "Нету книг в корзине";
+WAY = "ASC";
+CATEGORYID = 0;
+SEARCH = "";
+
 function setBalance(balance = 9999) {
   let span = document.getElementById("balance");
   span.innerHTML = "Ваш баланс : " + balance + " рублей";
+}
+
+function getBalance() {
+  let span = document.getElementById("balance");
+  return Number(span.innerHTML.split(" ").at(-2));
 }
 
 function getBooks(url, filters, callable = console.log) {
@@ -39,7 +49,13 @@ function addBooks(books) {
   }
 }
 
+function placeBooks() {
+  clearBooks();
+  getBooks("http://45.8.249.57/bookstore-api/books", getFilters(), addBooks);
+}
+
 function addBookToCart(bookId) {
+  changeCartBackCaption();
   if (document.getElementById("cart_book_" + bookId)) {
     modifyBookInCart(bookId);
     return;
@@ -52,7 +68,8 @@ function addBookToCart(bookId) {
   <div class=" basket  ">
     <div class="market-bord-item-info  ">
       <span class="name">${name}</span>
-      <span class="value">1шт.</span>
+      <span class="value">1 шт.</span><button onclick="modifyBookInCart(${bookId},-1)" > - </button >
+       <button onclick="modifyBookInCart(${bookId})"> + </button>
       <span class="price">${price}</span>
     </div>
     <button onclick="deleteBookFromCart(${bookId})"><img src="./src/Cross.png" alt="cross"></button>
@@ -60,41 +77,145 @@ function addBookToCart(bookId) {
 
   let cart = document.getElementById("cart");
   let newBookDiv = document.createElement("div");
-  newBookDiv.className = "market-bord-item ";
+  newBookDiv.className = "market-bord-item cart";
   newBookDiv.id = "cart_book_" + bookId;
   newBookDiv.innerHTML = schema;
   cart.append(newBookDiv);
+  sumBooks();
 }
 
 function modifyBookInCart(bookId, diff = 1) {
+  diff = Number(diff);
   let book = document.getElementById("cart_book_" + bookId);
   let amount = book.getElementsByClassName("value")[0];
-  let amountValue = amount.innerHTML.slice(0, -3);
-  amountValue = Number(amountValue) + diff;
+  let amountValue = Number(amount.innerHTML.slice(0, -3));
+  let price = book.getElementsByClassName("price")[0];
+  let priceValue = Number(price.innerHTML.slice(0, -4));
+  priceValue = (priceValue / amountValue) * (amountValue + diff);
+  amountValue = amountValue + diff;
   if (amountValue < 1) {
     deleteBookFromCart(bookId);
     return;
   }
-  amount.innerHTML = amountValue + "шт.";
+  price.innerHTML = priceValue + " руб.";
+  amount.innerHTML = amountValue + " шт.";
+  sumBooks();
 }
 
 function deleteBookFromCart(bookId) {
   let book = document.getElementById("cart_book_" + bookId);
   book.remove();
+  if (document.getElementsByClassName("basket").length === 0) {
+    changeCartBackCaption(NOBOOK);
+  }
+  sumBooks();
+}
+
+function changeCartBackCaption(caption = "") {
+  let captionP = document.getElementById("noBook");
+  captionP.innerHTML = caption;
+}
+
+function sumBooks() {
+  let sumPrice = 0;
+  let books = document.getElementsByClassName("basket");
+  for (let book of books) {
+    let price = book.getElementsByClassName("price")[0];
+    sumPrice += Number(price.innerHTML.slice(0, -4));
+  }
+  let totalPrice = document.getElementById("totalPrice");
+  let buySection = document.getElementsByClassName("buy")[0];
+  if (sumPrice === 0) {
+    buySection.style.visibility = "hidden";
+  } else {
+    buySection.style.visibility = "visible";
+  }
+  totalPrice.innerHTML = sumPrice + " руб.";
+}
+
+function buy() {
+  let balance = getBalance();
+  let totalPrice = document.getElementById("totalPrice");
+  totalPrice = Number(totalPrice.innerHTML.slice(0, -4));
+  let diff = balance - totalPrice;
+  if (diff < 0) {
+    alert("ДиНахуй");
+    return;
+  }
+  let books = document.getElementsByClassName("market-bord-item cart");
+  for (let book of books) {
+    book.remove();
+  }
+  setBalance(diff);
+  sumBooks();
+  document.getElementById("");
+}
+
+function clearBooks() {
+  let table = document.getElementById("books");
+  table.innerHTML = "";
+}
+
+function sortByPrice() {
+  if (window.WAY === "ASC") {
+    window.WAY = "DESC";
+  } else {
+    window.WAY = "ASC";
+  }
+  placeBooks();
+}
+
+function getBooksByCategory(value) {
+  if (value > 0) {
+    window.CATEGORYID = value;
+  } else {
+    window.CATEGORYID = 0;
+  }
+  placeBooks();
+}
+
+function searchText(value) {
+  window.SEARCH = value;
+  placeBooks();
+}
+
+function getFilters() {
+  let filters = {};
+  filters.sortPrice = WAY;
+  if (CATEGORYID > 0) {
+    filters.categoryId = CATEGORYID;
+  }
+  if (SEARCH.length > 0) {
+    filters.search = SEARCH;
+  }
+  return filters;
+}
+
+function getCategories() {
+  let url = "http://45.8.249.57/bookstore-api/books/categories";
+  fetch(url, {
+    method: "GET",
+  })
+    .then((response) => response.text())
+    .then((text) => addCategories(text));
+}
+
+function addCategories(categories) {
+  categories = JSON.parse(categories);
+  let catSelect = document.getElementById("category");
+  for (let category of categories) {
+    catSelect.options[catSelect.options.length] = new Option(
+      category.name,
+      category.id
+    );
+    console.log(category);
+  }
 }
 
 function main() {
   setBalance();
-  getBooks("http://45.8.249.57/bookstore-api/books", {}, addBooks);
+  getCategories();
+  placeBooks();
 }
 
 window.onload = main;
-
-// <button><img src="src/Cross.png" alt="cross"></button>
-// <div className=" basket  ">
-//   <div className="market-bord-item-info  ">
-//     <span id="name">Название книги</span>
-//     <span id="value">1шт.</span>
-//     <span id="price">1321руб.</span>
-//   </div>
-// </div>
