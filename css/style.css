@@ -134,18 +134,23 @@ header {
 
 .main-bord__block-right {
   height: 100%;
+  position: fixed;
+  right: 0;
 }
 
 .market-bord-item {
+  border-radius: 10px;
+  background: #80808038;
   display: flex;
-  width: 360px;
-  height: 100px;
+  width: 45%;
+  height: 225px;
   margin: 20px;
 }
 
 .img {
   /*background: #c4c4c4;*/
-  width: 20%;
+  width: 40%;
+  border-radius: 10px;
 }
 
 .market-bord-item-info {
@@ -156,16 +161,21 @@ header {
 }
 
 .market-bord-item-info > span {
-  font-weight: 400;
-  font-size: 16px;
+  font-weight: 600;
+  font-size: 20px;
   line-height: 24px;
   margin-left: 5px;
+  position: relative;
+  top: 10%;
 }
 
 .market-bord-item-info-bottom {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+  position: relative;
+  /* bottom: 34%; */
+  height: 50%;
 }
 
 .market-bord-item-info-bottom > span {
@@ -173,20 +183,30 @@ header {
   font-size: 24px;
   line-height: 100%;
   margin-left: 5px;
+  position: absolute;
+  top: 0%;
 }
 
 .market-bord-item-info-bottom > button {
-  width: 127px;
-  height: 37px;
+  width: 130px;
+  height: 46px;
   background: #c4c4c4;
   border: none;
   border-radius: 8px;
+  position: absolute;
+  font-size: 18px;
+  font-weight: 600;
+  top: 50px;
+  right: 20px;
 }
 
 .market-bord {
   margin-top: 30px;
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
+  border-top: 10px double #af6e66;
+  border-bottom: 10px double #af6e66;
 }
 
 .basket {
