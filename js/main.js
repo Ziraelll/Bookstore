@@ -26,15 +26,14 @@ function getBooks(url, filters, callable = console.log) {
 }
 
 function addBook(book, bookId) {
-  let schema =
-    `                <img class="img" src="${book.coverUrl} " alt=''> \n` +
-    `                <div class="market-bord-item-info ">\n` +
-    `                    <span>${book.name}</span>\n` +
-    `                    <div class="market-bord-item-info-bottom">\n` +
-    `                        <span>${book.price}руб.</span>\n` +
-    `                       <button onclick="addBookToCart(${bookId})">В Корзину</button>\n` +
-    `                    </div>\n` +
-    `               </div>\n`;
+  let schema = `                <img class="img" src="${book.coverUrl} " alt=''> \n
+                    <div class="market-bord-item-info ">\n
+                        <span>${book.name}</span>\n
+                        <div class="market-bord-item-info-bottom">\n
+                            <span>${book.price}руб.</span>\n
+                           <button onclick="addBookToCart(${bookId})">В Корзину</button>\n
+                        </div>\n
+                   </div>\n`;
   let table = document.getElementById("books");
   let bookDiv = document.createElement("div");
   bookDiv.className = "market-bord-item ";
@@ -44,6 +43,9 @@ function addBook(book, bookId) {
 }
 
 function addBooks(books) {
+  if (books.length === 0) {
+    addEmptyLabel();
+  }
   for (let book in books) {
     addBook(books[book], book);
   }
@@ -52,6 +54,11 @@ function addBooks(books) {
 function placeBooks() {
   clearBooks();
   getBooks("http://45.8.249.57/bookstore-api/books", getFilters(), addBooks);
+}
+
+function addEmptyLabel() {
+  let table = document.getElementById("books");
+  table.innerHTML = "<p>Нет подходящих книг</p>";
 }
 
 function addBookToCart(bookId) {

@@ -78,7 +78,7 @@ header {
   border: none;
   outline: none;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 20px;
   line-height: 19px;
 }
 
@@ -90,10 +90,10 @@ header {
   margin-left: 20px;
   border: none;
   outline: none;
-  min-width: 100px;
-  max-width: 180px;
+  min-width: 104px;
+  max-width: 250px;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 18px;
   line-height: 19px;
 }
 
@@ -104,19 +104,21 @@ header {
 
 .search-block {
   display: flex;
+  height: 50px;
 }
 
 .search-block > input {
-  width: 190px;
+  width: 30%;
   font-weight: 400;
-  font-size: 14px;
+  font-size: 18px;
   line-height: 17px;
-
   margin: 7px 0 8px 0;
+  padding: 0 10px;
+  border: none;
 }
 
 .search-block > img {
-  width: 30px;
+  width: 50px;
   margin-right: 10px;
 }
 
@@ -128,7 +130,7 @@ header {
 }
 
 .buy-text > img {
-  height: 30px;
+  height: 50px;
   margin-left: 10px;
 }
 
