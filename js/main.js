@@ -72,19 +72,26 @@ function addBookToCart(bookId) {
   let name = spans[0].innerHTML;
   let price = spans[1].innerHTML;
   let schema = `
-  <div class=" basket  ">
+
+  <div class="basket">
     <div class="market-bord-item-info  ">
       <span class="name">${name}</span>
-      <span class="value">1 шт.</span><button onclick="modifyBookInCart(${bookId},-1)" > - </button >
-       <button onclick="modifyBookInCart(${bookId})"> + </button>
-      <span class="price">${price}</span>
+      <div class="counter">
+      <span class="value">1 шт.</span>
+      <div class="bute">
+      <button onclick="modifyBookInCart(${bookId},-1)" > - </button >
+      <button onclick="modifyBookInCart(${bookId})"> + </button>
+      </div>
+      </div>
+      <span class="price price_cart">${price}</span>
     </div>
     <button onclick="deleteBookFromCart(${bookId})"><img src="./src/Cross.png" alt="cross"></button>
-  </div>`;
+  </div>
+`;
 
-  let cart = document.getElementById("cart");
+  let cart = document.getElementById("scroll");
   let newBookDiv = document.createElement("div");
-  newBookDiv.className = "market-bord-item cart";
+  newBookDiv.className = "market-bord-item-right cart";
   newBookDiv.id = "cart_book_" + bookId;
   newBookDiv.innerHTML = schema;
   cart.append(newBookDiv);
@@ -112,7 +119,7 @@ function modifyBookInCart(bookId, diff = 1) {
 function deleteBookFromCart(bookId) {
   let book = document.getElementById("cart_book_" + bookId);
   book.remove();
-  if (document.getElementsByClassName("basket").length === 0) {
+  if (document.getElementsByClassName("cart").length === 0) {
     changeCartBackCaption(NOBOOK);
   }
   sumBooks();
@@ -146,16 +153,13 @@ function buy() {
   totalPrice = Number(totalPrice.innerHTML.slice(0, -4));
   let diff = balance - totalPrice;
   if (diff < 0) {
-    alert("ДиНахуй");
+    alert("На счету не достаточно средств");
     return;
   }
-  let books = document.getElementsByClassName("market-bord-item cart");
-  for (let book of books) {
-    book.remove();
-  }
+  let cart = document.getElementById("scroll");
+  cart.innerHTML = "";
   setBalance(diff);
   sumBooks();
-  document.getElementById("");
 }
 
 function clearBooks() {
@@ -215,7 +219,6 @@ function addCategories(categories) {
       category.name,
       category.id
     );
-    console.log(category);
   }
 }
 

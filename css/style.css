@@ -136,7 +136,7 @@ header {
 
 .main-bord__block-right {
   height: 100%;
-  position: fixed;
+  /*position: fixed;*/
   right: 0;
 }
 
@@ -266,4 +266,35 @@ header {
   background: #c4c4c4;
   border: none;
   border-radius: 8px;
+  margin-top: 10px;
+}
+
+.market-bord-item-right {
+  border-radius: 10px;
+  display: flex;
+  width: 90%;
+  height: 130px;
+  margin: 20px;
+}
+
+.counter {
+  display: flex;
+  margin-top: 5%;
+  justify-content: space-around;
+}
+
+.bute {
+  margin-right: 30%;
+}
+
+.bute > button {
+  width: 40px;
+  height: 25px;
+  background: #c4c4c4;
+  border: none;
+  border-radius: 8px;
+}
+
+.market-bord-item-info > span.price_cart {
+  top: -5%;
 }
